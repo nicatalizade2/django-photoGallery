@@ -1,0 +1,111 @@
+{% extends 'photos/main.html' %}
+{% block content %}
+<div class="row">
+     <div class="col-md-3">
+         <div class="card" >
+         {% if request.user.is_authenticated %}
+             <h3>Hello, {{ request.user.username }}</h3>
+         {%  endif %}
+             <div class="card-header">
+                 Categories
+             </div>
+                 <ul class="list-group list-group-flush">
+                     <li class="list-group-item">
+                         <a href="{% url 'gallery' %}">All</a>
+                     </li>
+                     {%  for category in categories %}
+                         <li class="text-capitalize list-group-item">
+                             <a class="text-capitalize" href="{% url 'gallery' %}?filter={{ category.name }}">
+                                 {{ category.name}}
+                             </a>
+                         </li>
+                     {%  endfor %}
+                      <a href="{% url 'add' %}" class="btn btn-dark btn-block btn-sm ">Add Photo</a>
+                      <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm ">Logout</a>
+                 </ul>
+         </div>
+     </div>
+     <div class="col-md-9">
+         <div class="row">
+             {% for photo in photos %}
+                 <div class="col-md-4 mb-4">
+                    <div class="card" >
+                        <img  style="object-fit:cover; height: 300px"  class="photo card-img-top"
+                          src="{{ photo.image.url }}"
+                          alt="" >
+                        <div class="card-body">
+                            <p class="card-text text-capitalize">Category: {{ photo.category.name }}</p>
+                        </div>
+                        <a class="btn btn-outline-dark btn-sm m-1" href="{% url 'photo' photo.id %}">View</a>
+                    </div>
+                 </div>
+             {% endfor %}
+         </div>
+     </div>
+</div>
+
+{%  endblock %}
+
+
+{##}
+{##}
+{##}
+{#{% extends 'photos/main.html' %}#}
+{#{% block content %}#}
+{#         <div class="row">#}
+{#            <div class="col-lg-12 text-center my-2">#}
+{#                   <h1 class="py-3">Photo Album</h1>#}
+{#                  {% if request.user.is_authenticated %}#}
+{#                      <h3>Hello, {{ request.user.username }}</h3>#}
+{#                  {%  endif %}#}
+{#                <a href="{% url 'add' %}" class="btn btn-dark btn-block btn-sm ">Add Photo</a>#}
+{#                <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm ">Logout</a>#}
+{#               <h4>Enjoy your album gallery</h4>#}
+{#            </div>#}
+{#         </div>#}
+{##}
+{#         <div class="portfolio-menu mt-2 mb-4">#}
+{#             <ul>#}
+{#                 <li class="btn btn-outline-dark active" data-filter="*">All</li>#}
+{#                 {% for category in categories %}#}
+{#                     <li class="btn btn-outline-dark" data-filter=".{{ category.name }}">{{ category.name}}</li>#}
+{#                 {% endfor %}#}
+{#             </ul>#}
+{#         </div>#}
+{#         <div class="portfolio-item row">#}
+{#             {% for photo in photos %}#}
+{#                 <div class="item {{ photo.category.name }} col-lg-3 col-md-4 col-6 col-sm">#}
+{#                     <a href="{{ photo.image.url }}" class="fancylight popup-btn" data-fancybox-group="light">#}
+{#                         <img style="object-fit: cover; height: 200px; width: 350px" class="img-fluid" src="{{ photo.image.url}}" alt="">#}
+{#                     </a>#}
+{#                     <div class="card-body">#}
+{#                         <p class="card-text text-capitalize"><span style="font-weight: bold">Category:</span> {{ photo.category.name }}</p>#}
+{#                         <p class="card-text text-capitalize"><span style="font-weight: bold">Description:</span> {{ photo.description }}</p>#}
+{#                     </div>#}
+{#                 </div>#}
+{#                 {%  empty %}#}
+{#                 <h3>You don't have any photo! <a class="text-decoration-none" href="{% url 'add' %}">Add</a> a few photo and enjoy your gallery</h3>#}
+{##}
+{#             {% endfor %}#}
+{#         </div>#}
+{#    <script>#}
+{##}
+{#         $('.portfolio-menu ul li').click(function(){#}
+{#         	$('.portfolio-menu ul li').removeClass('active');#}
+{#         	$(this).addClass('active');#}
+{##}
+{#         	var selector = $(this).attr('data-filter');#}
+{#         	$('.portfolio-item').isotope({#}
+{#         		filter:selector#}
+{#         	});#}
+{#         	return  false;#}
+{#         });#}
+{#         $(document).ready(function() {#}
+{#         var popup_btn = $('.popup-btn');#}
+{#         popup_btn.magnificPopup({#}
+{#         type : 'image',#}
+{#         gallery : {#}
+{#         	enabled : true}})})#}
+{#</script>#}
+{#{% endblock %}#}
+{##}

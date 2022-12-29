@@ -1,0 +1,21 @@
+{% extends 'photos/main.html' %}
+{% block content %}
+        <form method='post' class="form">
+            {% csrf_token %}
+            <h1>Login</h1>
+            <h4>Login to view photos and share with your friends</h4>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Username</label>
+                <input type="text" class="form-control" name="username" id="exampleInputEmail1" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="exampleInputPassword1">
+            </div>
+
+            <button type="submit" class="btn btn-danger text-black">Login</button>
+
+            <p>Don't have an account ?<a class="text-blue-800" href="{% url 'register' %}">Register</a></p>
+        </form>
+
+{% endblock %}

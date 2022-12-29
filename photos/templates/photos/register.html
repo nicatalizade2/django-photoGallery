@@ -1,0 +1,16 @@
+{% extends 'photos/main.html' %}
+{% block content %}
+    <form method='post'>
+        <h1>Register</h1>
+        {% csrf_token %}
+        <div class="mb-3">
+            {% for field in form %}
+            <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+            {{field}}
+            {%  endfor %}
+        </div>
+        <button type="submit" class="btn btn-danger text-black">Submit</button>
+        <p>Already have an account <a class="text-blue-800" href="{% url 'login' %}">Login</a></p>
+{{ form.errors }}
+    </form>
+{% endblock %}
